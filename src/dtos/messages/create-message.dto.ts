@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IMessage } from 'src/interfaces/messages/IMessage.interface';
 
-export class CreateMessageDto implements IMessage {
+export class CreateMessageDto {
   @ApiProperty()
   recipientId: string;
 
@@ -12,5 +11,5 @@ export class CreateMessageDto implements IMessage {
   content: string;
 
   @ApiProperty()
-  _id;
+  _id?: string;
 }

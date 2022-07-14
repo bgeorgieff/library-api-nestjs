@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
+import { IUser } from './IUser.interface';
 
 export interface IUserToken extends Document {
-  readonly user: string;
-  readonly token: string;
+  user: IUser;
+  token: string;
 }

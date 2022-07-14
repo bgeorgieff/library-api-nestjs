@@ -8,12 +8,22 @@ export class SendgridService {
   }
 
   async send(mail: SendGrid.MailDataRequired) {
-    const transport = await SendGrid.send(mail)
-      .then(() => console.log(`Email successfully dispatched to ${mail.to}`))
-      .catch((e) => {
-        throw new Error(e);
-      });
+    try {
+      const transport = await SendGrid.send(mail);
 
-    return transport;
+      if (transport) {
+        console.log(`Email successfully dispatched to ${mail.to}`);
+        return transport;
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+    // const transport = await SendGrid.send(mail)
+    //   .then(() => console.log(`Email successfully dispatched to ${mail.to}`))
+    //   .catch((e) => {
+    //     throw new Error(e);
+    //   });
+
+    // return transport;
   }
 }

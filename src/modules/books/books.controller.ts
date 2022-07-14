@@ -57,7 +57,7 @@ export class BooksController {
       },
     },
   })
-  async addBook(
+  addBook(
     @ExtractUser() user: IUserPayload,
     @UploadedFile() file: Express.Multer.File,
     @Body() book: BooksDto,
@@ -85,7 +85,7 @@ export class BooksController {
     },
   })
   @ApiParam({ name: 'id', type: 'string' })
-  async uploadPhotos(
+  uploadPhotos(
     @ExtractUser() user: IUserPayload,
     @UploadedFile() file: Express.Multer.File,
     @Param('id') id: string,
@@ -99,7 +99,7 @@ export class BooksController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(Endpoint.UpdateQty)
-  async addBookQty(
+  addBookQty(
     @ExtractUser() user: IUserPayload,
     @Param('id') id: string,
     @Body() _: { count: number },
@@ -112,18 +112,18 @@ export class BooksController {
   }
 
   @Get(Endpoint.NewlyAddedBooks)
-  async getNewlyAddedBooks(): Promise<IBook[]> {
+  getNewlyAddedBooks(): Promise<IBook[]> {
     return this.booksService.getNewlyAdded();
   }
 
   @Get(Endpoint.Count)
-  async getBooksCount(): Promise<number> {
-    return await this.booksService.getBooksCount();
+  getBooksCount(): Promise<number> {
+    return this.booksService.getBooksCount();
   }
 
   @Get(Endpoint.ById)
   @ApiParam({ name: 'id', type: String })
-  async getBookById(@Param('id') id: string): Promise<IBook> {
+  getBookById(@Param('id') id: string): Promise<IBook> {
     return this.booksService.getBook(id);
   }
 
@@ -133,7 +133,7 @@ export class BooksController {
     type: 'object',
     schema: { $ref: getSchemaPath(PaginationParamsDto) },
   })
-  async getBooks(
+  getBooks(
     @Query() { pageNumber, pageSize, searchStr }: PaginationParamsDto,
   ): Promise<[IBook[], number]> {
     return this.booksService.getAllBooks(pageNumber, pageSize, searchStr);

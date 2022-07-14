@@ -14,7 +14,7 @@ export class BooksService {
   ) {}
 
   async addNewBook(file: Express.Multer.File, book: BooksDto): Promise<IBook> {
-    const uploadedImg = await this.cloudinaryService.uploadImage(file);
+    const uploadedImg = await this.cloudinaryService.uploadResult(file);
 
     const bookParamsWithImg: BooksDto = {
       title: book.title,
@@ -22,6 +22,8 @@ export class BooksService {
       cover: uploadedImg.toString(),
       count: book.count,
       description: book.description,
+      author: book.author,
+      genres: book.genres,
     };
 
     const newBook = new this.booksModel(bookParamsWithImg);
@@ -54,15 +56,16 @@ export class BooksService {
     pageSize?: number,
     searchStr?: string,
   ): Promise<[IBook[], number]> {
-    const response = this.booksModel
-      .find()
-      .sort({ _id: 1 })
-      .populate('authors')
-      .populate('genres');
+    const response = this.booksModel.find().sort({ _id: 1 });
 
     if (searchStr) {
       response.find({
-        $or: [{ title: searchStr }, { description: searchStr }],
+        $or: [
+          { title: searchStr },
+          { description: searchStr },
+          { author: searchStr },
+          { genre: searchStr },
+        ],
       });
     }
 
@@ -89,7 +92,8 @@ export class BooksService {
   }
 
   async uploadCover(file: Express.Multer.File, id: string): Promise<IBook> {
-    const uploadedImg = await this.cloudinaryService.uploadImage(file);
+    const uploadedImg = await this.cloudinaryService.uploadResult(file);
+    console.log(uploadedImg);
 
     return await this.booksModel.findOneAndUpdate(
       { _id: id },

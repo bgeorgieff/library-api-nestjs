@@ -15,4 +15,10 @@ export class BooksDto {
 
   @ApiProperty()
   description: string;
+
+  @ApiProperty()
+  author: string[];
+
+  @ApiProperty()
+  genres: string[];
 }

@@ -67,12 +67,15 @@ export class AuthService {
     return null;
   }
 
-  async resetPassword(updatePasswordDto: UserResetPasswordDto) {
+  async resetPassword(
+    userEmail: string,
+    updatePasswordDto: UserResetPasswordDto,
+  ) {
     const { newPassword } = updatePasswordDto;
     const saltRounds = Token.saltRounds;
     const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
     const user = await this.usersService.updatePassword(
-      updatePasswordDto.email,
+      userEmail,
       hashedPassword,
     );
 

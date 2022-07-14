@@ -1,15 +1,7 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
-import { CreateAuthorDto } from 'src/dtos/authors/create-author.dto';
-import { UpdateAuthorDto } from 'src/dtos/authors/update-author.dto';
+import { AuthorDto } from 'src/dtos/authors/author.dto';
+
 import { Area } from 'src/enums/area-names.enum';
 import { Endpoint } from 'src/enums/endpoint-names.enum';
 import { AuthorsService } from './authors.service';
@@ -20,32 +12,20 @@ export class AuthorsController {
   constructor(private readonly authorsService: AuthorsService) {}
 
   @Post()
-  @ApiBody({ type: CreateAuthorDto })
-  create(@Body() createAuthorDto: CreateAuthorDto) {
-    return this.authorsService.create(createAuthorDto);
+  @ApiBody({ type: AuthorDto })
+  create(@Body() authorDto: AuthorDto) {
+    return this.authorsService.createAuthor(authorDto);
   }
 
   @Get()
-  findAll() {
-    return this.authorsService.findAll();
+  @ApiBody({ type: AuthorDto })
+  findAllBooksByAuthor(@Body() authorDto: AuthorDto) {
+    return this.authorsService.findAllByAuthor(authorDto);
   }
 
   @Get(Endpoint.ById)
   @ApiParam({ name: 'id', type: String })
   findOne(@Param('id') id: string) {
-    return this.authorsService.findOne(id);
-  }
-
-  @Patch(Endpoint.ById)
-  @ApiParam({ name: 'id', type: String })
-  @ApiBody({ type: UpdateAuthorDto })
-  update(@Param('id') id: string, @Body() updateAuthorDto: UpdateAuthorDto) {
-    return this.authorsService.update(id, updateAuthorDto);
-  }
-
-  @Delete(Endpoint.ById)
-  @ApiParam({ name: 'id', type: String })
-  remove(@Param('id') id: string) {
-    return this.authorsService.remove(id);
+    return this.authorsService.findAuthor(id);
   }
 }

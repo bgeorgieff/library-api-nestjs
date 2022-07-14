@@ -4,7 +4,7 @@ import { IMessage } from 'src/interfaces/messages/IMessage.interface';
 export type MessageDocument = Message & Document;
 
 @Schema()
-export class Message implements IMessage {
+export class Message {
   @Prop({ required: true })
   content: string;
 

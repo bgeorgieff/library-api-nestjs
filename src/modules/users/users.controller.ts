@@ -17,16 +17,16 @@ import { ApiBody, ApiConsumes, ApiParam, ApiTags } from '@nestjs/swagger';
 @Controller(Area.Users)
 @ApiTags(Area.Users)
 export class UsersController {
-  constructor(private readonly us: UsersService) {}
+  constructor(private readonly userService: UsersService) {}
 
   @Get(Endpoint.Count)
-  async usersCount(): Promise<number> {
-    return await this.us.getUsersCount();
+  usersCount(): Promise<number> {
+    return this.userService.getUsersCount();
   }
 
   @Get(Endpoint.GetUser)
-  async getUserDetails(@Param('id') userId: string): Promise<IUser> {
-    return await this.us.getUserById(userId);
+  getUserDetails(@Param('id') userId: string): Promise<IUser> {
+    return this.userService.getUserById(userId);
   }
 
   @Patch(Endpoint.UploadImg)
@@ -44,10 +44,10 @@ export class UsersController {
     },
   })
   @ApiParam({ name: 'id', type: String })
-  async uploadImage(
+  uploadImage(
     @UploadedFile() file: Express.Multer.File,
     @Param('id') id: string,
   ): Promise<IUser> {
-    return this.us.uploadNewImage(file, id);
+    return this.userService.uploadNewImage(file, id);
   }
 }

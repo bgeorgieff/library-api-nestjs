@@ -1,5 +1,4 @@
 import { Document } from 'mongoose';
-import { IMessage } from '../messages/IMessage.interface';
 
 export interface IUser extends Document {
   readonly firstName: string;
@@ -13,6 +12,5 @@ export interface IUser extends Document {
   readonly streetNumber: string;
   readonly additionalInfo: string;
   readonly isAdmin: boolean;
-  readonly imgUrl: string;
-  readonly messagesReceived: IMessage[];
+  readonly imageUrl: string;
 }

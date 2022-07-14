@@ -11,12 +11,16 @@ export class ResetPassService {
   ) {}
 
   async getLatestToken(userId: string): Promise<IUserToken | null> {
-    const date = new Date();
-    date.setMinutes(date.getMinutes() - Token.expirationMinutes);
-    const user = await this.tokenModel
-      .findOne({ user: userId, createdAt: { $gte: date } })
-      .sort({ createdAt: -1 });
+    try {
+      const date = new Date();
+      date.setMinutes(date.getMinutes() - Token.expirationMinutes);
+      const user = await this.tokenModel
+        .findOne({ user: userId, createdAt: { $gte: date } })
+        .sort({ createdAt: -1 });
 
-    return user ? user : null;
+      return user ? user : null;
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 }

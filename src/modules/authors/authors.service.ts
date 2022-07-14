@@ -1,20 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { GenericCrudService } from 'src/generic-crud-service';
 import { Author, AuthorDocument } from 'src/schemas/author.schema';
-import { CreateAuthorDto } from '../../dtos/authors/create-author.dto';
-import { UpdateAuthorDto } from '../../dtos/authors/update-author.dto';
+import { AuthorDto } from '../../dtos/authors/author.dto';
 
 @Injectable()
-export class AuthorsService extends GenericCrudService<
-  AuthorDocument,
-  CreateAuthorDto,
-  UpdateAuthorDto
-> {
+export class AuthorsService {
   constructor(
     @InjectModel(Author.name) private authors: Model<AuthorDocument>,
-  ) {
-    super(authors);
+  ) {}
+
+  async createAuthor(author: AuthorDto) {
+    try {
+      const { name, bio, bookId } = author;
+      return await new this.authors({ name, bio, bookId }).save();
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async findAllByAuthor(author: AuthorDto) {
+    try {
+      const { name } = author;
+      return await this.authors.find({ name });
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async findAuthor(_id: string) {
+    try {
+      return await this.authors.findOne({ _id });
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 }

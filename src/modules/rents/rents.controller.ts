@@ -24,7 +24,7 @@ export class RentsController {
   @UseGuards(JwtAuthGuard)
   @Post(Endpoint.RentBook)
   @ApiParam({ name: 'id', type: String })
-  async requestRent(
+  requestRent(
     @ExtractUser() user: IUserPayload,
     @Param('id') id: string,
   ): Promise<{ message: string } | undefined> {
@@ -34,7 +34,7 @@ export class RentsController {
   @UseGuards(JwtAuthGuard)
   @Post(Endpoint.ApproveRent)
   @ApiParam({ name: 'id', type: String })
-  async ApproveRent(
+  ApproveRent(
     @ExtractUser() user: IUserPayload,
     @Param('id') id: string,
   ): Promise<{ message: string } | undefined> {
@@ -48,7 +48,7 @@ export class RentsController {
   @UseGuards(JwtAuthGuard)
   @Post(Endpoint.MarkAsReturned)
   @ApiParam({ name: 'id', type: String })
-  async returnBook(
+  returnBook(
     @ExtractUser() user: IUserPayload,
     @Param('id') id: string,
   ): Promise<{ message: string } | undefined> {
@@ -61,7 +61,7 @@ export class RentsController {
 
   @UseGuards(JwtAuthGuard)
   @Get(Endpoint.GetApprovedRents)
-  async getApprovedRents(
+  getApprovedRents(
     @ExtractUser() user: IUserPayload,
   ): Promise<IRentView[] | undefined> {
     return this.rentsService.getAllApproved(user._id);
@@ -69,7 +69,7 @@ export class RentsController {
 
   @UseGuards(JwtAuthGuard)
   @Get(Endpoint.GetReturnedRents)
-  async getAllReturned(
+  getAllReturned(
     @ExtractUser() user: IUserPayload,
   ): Promise<IRentView[] | undefined> {
     return this.rentsService.getReturnedBooks(user._id);
