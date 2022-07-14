@@ -22,5 +22,5 @@ SENDGRID_API_KEY = your_sendgrid_api_key;
 SENDER_EMAIL = your_sender_email;
 ```
 
- ## This version of the project contains multiple logic changes
- ## PREVIOUS VERSION is deployed in Heroku - https://the-curious-readers-api.herokuapp.com/api 
+ ## The current version of the project contains multiple logic changes
+ <b>PREVIOUS VERSION</b> is deployed in Heroku - https://the-curious-readers-api.herokuapp.com/api 
