@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UploadApiErrorResponse, UploadApiResponse, v2 } from 'cloudinary';
 import toStream = require('buffer-to-stream');
 
@@ -13,10 +13,20 @@ export class CloudinaryService {
         (error, result) => {
           if (error) return reject(error);
           resolve(result);
-          return result;
         },
       );
       toStream(file.buffer).pipe(upload);
     });
+  }
+
+  async uploadResult(
+    file: Express.Multer.File,
+  ): Promise<UploadApiResponse | UploadApiErrorResponse> {
+    try {
+      const uploadedImg = await this.uploadImage(file);
+      return uploadedImg.url;
+    } catch (e) {
+      throw new BadRequestException('Invalid file type.');
+    }
   }
 }

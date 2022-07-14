@@ -16,7 +16,6 @@ import { Area } from 'src/enums/area-names.enum';
 import { Endpoint } from 'src/enums/endpoint-names.enum';
 import { TokenDto } from 'src/dtos/users/token.dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { UserForgotPasswordDto } from 'src/dtos/users/user-forgot.dto';
 
 @Controller(Area.Auth)
 @ApiTags(Area.Auth)
@@ -25,7 +24,7 @@ export class AuthController {
 
   @Post(Endpoint.Register)
   @ApiBody({ type: UserRegisterDto })
-  async register(@Body() user: UserRegisterDto) {
+  register(@Body() user: UserRegisterDto) {
     return this.authService.userRegister(user);
   }
 
@@ -52,7 +51,10 @@ export class AuthController {
 
   @Patch(Endpoint.ResetPassword)
   @ApiBody({ type: UserResetPasswordDto })
-  resetPassword(@Body() userResetPasswordDto: UserResetPasswordDto) {
-    return this.authService.resetPassword(userResetPasswordDto);
+  resetPassword(
+    @Query('email') email: string,
+    @Body() userResetPasswordDto: UserResetPasswordDto,
+  ) {
+    return this.authService.resetPassword(email, userResetPasswordDto);
   }
 }

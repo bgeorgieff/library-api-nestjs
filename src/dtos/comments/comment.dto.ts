@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IComment } from 'src/interfaces/comments/IComment.interface';
+import { IBook } from 'src/interfaces/books/IBooks.interface';
 
-export class CreateCommentDto implements IComment {
+export class CommentDto {
   @ApiProperty()
   rating: number;
 
@@ -12,5 +12,5 @@ export class CreateCommentDto implements IComment {
   userId: string;
 
   @ApiProperty()
-  bookId: string;
+  bookId: IBook;
 }

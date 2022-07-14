@@ -5,7 +5,6 @@ import { Rents } from 'src/schemas/rents.schema';
 import { MessagesService } from '../messages/messages.service';
 import { IRentView } from '../../interfaces/rents/IRentsView.interface';
 import { BooksService } from '../books/books.service';
-import { IMessage } from 'src/interfaces/messages/IMessage.interface';
 
 @Injectable()
 export class RentsService {
@@ -16,7 +15,7 @@ export class RentsService {
     private readonly booksService: BooksService,
   ) {}
 
-  setMessage(id: string, content: string, read?: boolean): IMessage {
+  setMessage(id: string, content: string, read?: boolean): any {
     return {
       recipientId: id,
       read: read ? read : false,

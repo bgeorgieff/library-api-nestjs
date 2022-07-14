@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Author, AuthorSchema } from 'src/schemas/author.schema';
 import { Genre, GenreSchema } from 'src/schemas/genre.schema';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
-import { Upload } from '../../upload.cloudinary';
+// import { Upload } from '../../upload.cloudinary';
 import { AuthorsService } from '../authors/authors.service';
 import { GenresService } from '../genres/genres.service';
 
@@ -19,7 +19,7 @@ import { GenresService } from '../genres/genres.service';
   providers: [
     BooksService,
     CloudinaryService,
-    Upload,
+    // Upload,
     AuthorsService,
     GenresService,
   ],

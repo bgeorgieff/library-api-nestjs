@@ -1,6 +1,8 @@
-export class IMessage {
+import { Document } from 'mongoose';
+
+export class IMessage extends Document {
   content: string;
   read: boolean;
   recipientId: string;
-  _id?;
+  _id?: string;
 }
