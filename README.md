@@ -22,4 +22,4 @@ SENDGRID_API_KEY = your_sendgrid_api_key;
 SENDER_EMAIL = your_sender_email;
 ```
 
-<!-- ## Deployed in Heroku - https://the-curious-readers-api.herokuapp.com/api -->
+ ## OLD VERSION is deployed in Heroku - https://the-curious-readers-api.herokuapp.com/api 
